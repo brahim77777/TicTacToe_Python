@@ -92,19 +92,24 @@ def check_winner(values ):
 	for i in range(3):
 		if check_triple(values[i]):
 			return  check_triple(values[i]) 
-	for i in range(3):
 		if check_triple(values.T[i]):
 			return check_triple(values.T[i])
 
 	if check_triple(np.diag(values)):
 		return check_triple(np.diag(values))
 
-	if check_triple(np.diag(values[::-1]	))	:
+	if check_triple(np.diag(values[::-1])) :
 		return check_triple(np.diag(values[::-1]))
+
+	#No Winner is Found so the function will return None
 	
 def check_triple( triple ):
-	if triple[0] == triple[1] == triple[2]:
-		return triple[0]
+	
+	if triple[0] == triple[1] == triple[2] != '':
+		if triple[0] == None:
+			return False
+		else : 
+			return triple[0]	
 	else:
 		return False
 	
