@@ -1,4 +1,5 @@
 import numpy as np
+from  time import sleep
 import os
 
 def clear_screen():
@@ -10,6 +11,7 @@ def main():
 	P1 = "X"
 	P2 = "0"
 	char = P1
+	taken_cases = [0]*9 
 	player1 = input("what's your name Player1 ? ")
 	player2 = input("what's your name Player2 ? ")
 	while freeSpace > 0 :
@@ -19,25 +21,41 @@ def main():
 			
 			char = P1 if freeSpace % 2 else P2
 			cor = int(input(f"your choice {player1 if P1 == char else player2} : "))
+			if cor in taken_cases:
+				print("="*100)
+				print("The case is Taken! , pick another one")
+				print("="*100)
+				sleep(2)
+				continue
+
 			if cor > 9 : 
-				print("invalid choice!") 
+				print("="*100)
+				print("Number is too big !") 
+				print("="*100)
+
+				sleep(2)
 				continue
 			elif cor > 6 : 	
 				values[2][cor-7] = char 
+				taken_cases.append(cor)
 			elif cor > 3 :
 				values[1][cor-4] = char 
+				taken_cases.append(cor)
 			elif cor > 0 :
 				values[0][cor-1] = char 
+				taken_cases.append(cor)
 			else:
 				print("="*100)
-				print("the number Not COrrecct!")
+				print("The number is too small !")
 				print("="*100)
+				sleep(2)
 				continue
 				
 		except ValueError:
 			print("="*100)
-			print("Error")
+			print("Please pick a number between 1-9")
 			print("="*100)
+			sleep(2)
 			continue
 
 		if check_winner(values) == P1 or check_winner(values) == P2 :
@@ -45,6 +63,11 @@ def main():
 				print("🥳"*29) 
 				return
 		freeSpace-=1
+	print("="*100)
+	print()
+	print("Draw.")
+	print()
+	print("="*100)
 # ------------------ : first border
 # | --- |  O  |  X  |
 # | --- | --- | --- |
